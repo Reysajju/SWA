@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://streetmediaads.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Disallow patterns
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /*?*

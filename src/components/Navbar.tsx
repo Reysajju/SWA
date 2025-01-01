@@ -1,89 +1,113 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, MapPin } from 'lucide-react';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isActive = (path: string) => location.pathname === path;
+
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/services', label: 'Services' },
+    { path: '/gallery', label: 'Gallery' },
+    { path: '/faq', label: 'FAQ' },
+    { path: '/about', label: 'About' },
+    { path: '/contact', label: 'Contact' }
+  ];
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav 
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled ? 'nav-blur py-2' : 'bg-white/80 backdrop-blur-md py-4 shadow-lg'
+      }`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <span className="text-xl font-bold text-gray-800">Street Wise Ads</span>
-            </Link>
-          </div>
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-2" aria-label="Street Wise Ads Home">
+            <MapPin className="h-8 w-8 text-blue-600" aria-hidden="true" />
+            <span className="text-xl font-bold text-gray-900">Street Wise Ads</span>
+          </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-              Home
-            </Link>
-            <Link to="/services" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-              Services
-            </Link>
-            <Link to="/about" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-              About
-            </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
-              Contact
-            </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  isActive(link.path)
+                    ? 'text-blue-600'
+                    : 'text-gray-700 hover:text-blue-600'
+                }`}
+                aria-current={isActive(link.path) ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
-              to="/ad-form"
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              to="/register"
+              className="btn-primary text-sm"
+              aria-label="Get Started with Street Wise Ads"
             >
               Get Started
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            )}
+          </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <div className="md:hidden py-4" id="mobile-menu" role="menu">
+            <div className="flex flex-col space-y-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`text-sm font-medium block px-3 py-2 rounded-md ${
+                    isActive(link.path)
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                  role="menuitem"
+                  aria-current={isActive(link.path) ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              ))}
               <Link
-                to="/"
-                className="block text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md"
+                to="/register"
+                className="btn-primary text-sm text-center"
                 onClick={() => setIsOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                to="/services"
-                className="block text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                Services
-              </Link>
-              <Link
-                to="/about"
-                className="block text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className="block text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </Link>
-              <Link
-                to="/ad-form"
-                className="block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-                onClick={() => setIsOpen(false)}
+                role="menuitem"
               >
                 Get Started
               </Link>

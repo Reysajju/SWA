@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased text-gray-800;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 25%, #4299e1 75%, #2b6cb0 100%);
+  min-height: 100vh;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800;
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/80 rounded-2xl shadow-xl;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  @apply shadow-2xl bg-white/90;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  @apply bg-blue-600/90 text-white px-6 py-3 rounded-xl hover:bg-blue-700/90 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-white/90 text-blue-600 px-6 py-3 rounded-xl hover:bg-white transition-all duration-300 border-2 border-blue-600/20 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-lg;
+}
+
+.input-field {
+  @apply mt-1 block w-full rounded-xl border-gray-300/50 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-all duration-300 bg-white/70 backdrop-blur-sm;
+}
+
+.nav-blur {
+  @apply backdrop-blur-md bg-white/80 shadow-lg;
+}
+
+.section-padding {
+  @apply py-16 sm:py-24;
+}
+
+.font-modern {
+  @apply font-sans tracking-tight;
+}

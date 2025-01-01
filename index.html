@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Street Wise Ads - Mobile Billboard Advertising in Karachi</title>
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="Street Wise Ads - Mobile Billboard Advertising in Karachi" />
     <meta name="description" content="Transform rickshaws and cars into mobile billboards in Karachi. Affordable, effective outdoor advertising reaching every street. Place your ads without upfront payment!" />
-    <meta name ="keywords" content="auto rickshaw advertising, auto rickshaw advertising size, auto rikshaw banner size, auto rikshaw, auto rikshaw ads, street wise ads"/>
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://streetmediaads.com/" />
@@ -39,6 +39,38 @@
     <!-- Preconnect to Important Third-party Domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://images.unsplash.com" />
+
+    <!-- PWA Tags -->
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Street Wise Ads" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Street Wise Ads" />
+
+    <!-- Form Setup for Netlify -->
+    <form name="ad-placement" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="text" name="businessName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <select name="vehicleType"></select>
+      <input type="number" name="vehicleCount" />
+      <select name="duration"></select>
+      <select name="budget"></select>
+      <input type="text" name="targetAreas" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="vehicle-registration" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="ownerName" />
+      <select name="vehicleType"></select>
+      <input type="text" name="vehicleNumber" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="area" />
+      <select name="availability"></select>
+    </form>
   </head>
   <body>
     <div id="root"></div>
